@@ -1,0 +1,92 @@
+.calendar-header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.calendar-month {
+    width: 120px;
+}
+
+.col {
+    padding: 0 !important;
+}
+
+.calendar-container {
+    padding: 0 !important;
+}
+
+.calendar-weekday {
+    height: 30px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.weekday-day {
+    position:relative;
+    top: 10px;
+}
+
+.calendar-week {
+    height: 140px;
+}
+
+.calendar-day {
+    padding: 0 !important;
+    text-align: right;
+    border: 1px solid transparent;
+    font-size: 12px;
+    background-color: #fff;
+}
+
+.date {
+    padding: 5px;
+}
+
+
+.before {
+    color: rgb(122, 122, 122);
+}
+
+.calendar-day.today {
+    border-top: 2px solid rgb(1, 93, 197);
+
+}
+
+.today {
+    color:  rgb(1, 93, 197);
+}
+
+.selected {
+    color: #fff;
+}
+
+.calendar-icon {
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.calendar-icon:hover {
+    color: rgb(1, 93, 197);
+}
+
+.input-task {
+    display: none;
+}
+
+form.input-task {
+    width: 95%;
+}
+
+.input-task.selected {
+    display: block;
+}
+
+.calendar-input {
+    width: 100% !important;
+}
+
+
+.calendar-input::placeholder, 
+.calendar-input[type="text"] {
+    font-size: 12px;
+}
