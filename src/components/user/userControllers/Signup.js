@@ -17,7 +17,6 @@ function Signup({registerUser}){
 
     useEffect(() => {
 
-
         // check password requirements
         if(!passOne){
             setErrorMessage(null);
@@ -31,7 +30,7 @@ function Signup({registerUser}){
             setErrorMessage(null);
         }
 
-    })
+    },[passOne, passTwo])
 
     const handleSubmit = (e) => {
         e.preventDefault();

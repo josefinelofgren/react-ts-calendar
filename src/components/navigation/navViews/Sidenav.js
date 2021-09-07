@@ -25,10 +25,10 @@ function Sidenav({ sidenav, tasks, userID, user }){
     let beforeToday;
     let afterToday;
 
-    // sort tasks after date
-    let sortedTasks = tasks.sort((a,b) => new moment(a.taskDate).format('YYYYMMDD') - new moment(b.taskDate).format('YYYYMMDD'));
+    if(tasks !== undefined){
 
-    if(sortedTasks !== undefined){
+        // sort tasks after date
+    let sortedTasks = tasks.sort((a,b) => new moment(a.taskDate).format('YYYYMMDD') - new moment(b.taskDate).format('YYYYMMDD'));
 
         // get tasks with deadline before todays date
         beforeToday = sortedTasks.map((task, i) => {

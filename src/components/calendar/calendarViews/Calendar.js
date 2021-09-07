@@ -85,11 +85,10 @@ function Calendar({ addTask, tasks, userID }){
                                     </div>
 
                                     {data.map((thisDay) => {
-
                                         if(moment(thisDay.datum).isSame(day)){
                                             return(
                                                 <>
-                                                <div className={`date holiday ${thisDay['röd dag']}`}>{thisDay.helgdag}</div>
+                                                <div key={day} className={`date holiday ${thisDay['röd dag']}`}>{thisDay.helgdag}</div>
                                                 </>
                                             )
                                         }
