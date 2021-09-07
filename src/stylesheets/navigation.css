@@ -49,6 +49,47 @@
   background-color: rgb(7, 181, 255);
 }
 
+.info-bubble {
+  position: absolute;
+  background: #316283;
+  top: 52px;
+  font-size: 12px;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 5px;
+  display: none;
+}
+
+.info-bubble.logout {
+  right: 80px;
+}
+
+.info-bubble.notification {
+  right: 20px;
+}
+
+.info-bubble:after,
+ .info-bubble:before {
+  content: '';
+	position: absolute;
+	top: 0;
+	left: 83%;
+	width: 0;
+	height: 0;
+	border: 8px solid transparent;
+	border-bottom-color: #316283;
+	border-top: 0;
+	margin-left: -20px;
+	margin-top: -7px;
+  z-index:2;
+}
+
+
+
+.logout-icon:hover + .info-bubble {
+  display: block;
+}
+
 
 /* icons */ 
   

@@ -34,12 +34,12 @@
     padding: 0 !important;
     text-align: right;
     border: 1px solid transparent;
-    font-size: 12px;
     background-color: #fff;
     height: auto;
     min-height: 120px;
     max-height: 200px;
     overflow: scroll;
+    font-size: 14px;
 }
 
 .calendar-day.today {

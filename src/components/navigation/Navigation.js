@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { IoIosNotificationsOutline } from 'react-icons/io'
+import { VscSignOut } from 'react-icons/vsc';
 
 // import components
 import { Navbar, Container } from 'react-bootstrap';
@@ -57,15 +58,17 @@ function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
                     {user &&
                     <>
                         <Link
-                          className='link text-secondary user' 
+                          className='link text-secondary nav-icon user' 
                           onClick={e => logOutUser(e, history)}
                           to='/react-calendar'>
-                              Logga ut
+                              <VscSignOut className='logout-icon' /> 
+                              <div className='info-bubble logout'>Logga ut</div>
                         </Link>
                         <Link 
                           className='link text-secondary nav-icon user'
                           to='#'>
-                              <IoIosNotificationsOutline /> 
+                              <IoIosNotificationsOutline className='logout-icon'/> 
+                              <div className='info-bubble notification'>Antal uppgifter kvar att göra</div>
                               <div className={notification ? 'notification-bubble text-white fw-bold is-active' : 'notification-bubble text-white fw-bold'}>{howManyTasks}</div>
                         </Link>
                     </>
