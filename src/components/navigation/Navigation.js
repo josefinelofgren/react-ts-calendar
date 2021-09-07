@@ -59,7 +59,7 @@ function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
                         <Link
                           className='link text-secondary user' 
                           onClick={e => logOutUser(e, history)}
-                          to='/react-calendar/'>
+                          to='/react-calendar'>
                               Logga ut
                         </Link>
                         <Link 

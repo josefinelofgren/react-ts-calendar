@@ -47,7 +47,7 @@ class App extends Component {
 
         const tasksRef = firebase
           .database()
-          .ref('/react-calendar/app/calendar/' + FirebaseUser.uid);
+          .ref('react-calendar/app/calendar/' + FirebaseUser.uid);
 
         tasksRef.on('value', snapshot => {
 
@@ -95,7 +95,7 @@ class App extends Component {
   addTask = (taskName, taskDate, taskShortDate, taskChecked) => {
     const ref = firebase
         .database()
-        .ref(`/react-calendar/app/calendar/${this.state.user.uid}`);
+        .ref(`react-calendar/app/calendar/${this.state.user.uid}`);
     ref.push({
       taskName:taskName, 
       taskDate:taskDate, 
@@ -134,7 +134,7 @@ class App extends Component {
         .then(() => {
           console.log('utloggad');
           console.log(this.state.user);
-          history.push('/react-calendar/');
+          history.push('/react-calendar');
       })
   };
 
@@ -172,7 +172,7 @@ class App extends Component {
                         howManyTasks={this.state.howManyTasks}/> 
                     <Switch>
                       <Route 
-                          exact path='/react-calendar/'>
+                          exact path='/react-calendar'>
                           <StartPage
                               user={this.state.user}/> 
                       </Route>

@@ -14,7 +14,7 @@ function ReturnTask ({taskChecked, taskID, taskShortDate, taskName, userID}){
 
         const ref = firebase
         .database()
-        .ref(`/app/calendar/${userID}/${whichTask}/taskChecked`);
+        .ref(`react-calendar/app/calendar/${userID}/${whichTask}/taskChecked`);
 
         if(taskChecked === false){
             ref.set(!taskChecked);
@@ -28,7 +28,7 @@ function ReturnTask ({taskChecked, taskID, taskShortDate, taskName, userID}){
     const deleteTask = (e, whichTask) => {
         e.preventDefault();
 
-        const ref  = firebase.database().ref(`app/calendar/${userID}/${whichTask}`);
+        const ref  = firebase.database().ref(`react-calendar/app/calendar/${userID}/${whichTask}`);
         ref.remove();
     }
 
