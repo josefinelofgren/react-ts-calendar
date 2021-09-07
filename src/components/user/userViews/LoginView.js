@@ -11,8 +11,9 @@ import Container from 'react-bootstrap/Container';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
+import FormError from '../userControllers/FormError';
 
-function LoginView({handleSubmit, email, setEmail, password, setPassword}){
+function LoginView({handleSubmit, errorMessage, email, setEmail, password, setPassword}){
 
     return(
         <Container>
@@ -57,6 +58,9 @@ function LoginView({handleSubmit, email, setEmail, password, setPassword}){
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         />
+                        {errorMessage !== null ? (
+                                <FormError theMessage={errorMessage}/> 
+                            ) : null}
                     <Button type='submit' className='fw-bold'>Logga in</Button>
                     <p className='form-or'> 
                         <span>eller</span>
