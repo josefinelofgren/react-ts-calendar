@@ -172,7 +172,7 @@ class App extends Component {
                         howManyTasks={this.state.howManyTasks}/> 
                     <Switch>
                       <Route 
-                          exact path='/react-calendar'>
+                          exact path='/react-calendar/'>
                           <StartPage
                               user={this.state.user}/> 
                       </Route>
