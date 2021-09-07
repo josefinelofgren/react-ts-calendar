@@ -16,6 +16,8 @@ function ReturnTask ({taskChecked, taskID, taskShortDate, taskName, userID}){
         .database()
         .ref(`react-calendar/app/calendar/${userID}/${whichTask}/taskChecked`);
 
+        console.log(taskChecked);
+        
         if(taskChecked === false){
             ref.set(!taskChecked);
         } else if(taskChecked === true){

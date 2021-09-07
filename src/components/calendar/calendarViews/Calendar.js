@@ -16,7 +16,6 @@ function Calendar({ addTask, tasks, userID }){
     moment.locale('sv');
     const weekdays = ['Mån', 'Tis', 'Ons', 'Tors', 'Fre', 'Lör', 'Sön'];
 
-
     // states
     const [calendar, setCalendar] = useState([]);
     const [value, setValue] = useState(moment());
@@ -29,13 +28,11 @@ function Calendar({ addTask, tasks, userID }){
         setValue(day)
     }
 
-
    useEffect(() => {
-
     setCalendar(BuildCalendar(value));
 
-            return (
-            fetch(`http://sholiday.faboul.se/dagar/v2.1/${value.format('YYYY')}`)
+        return (
+           fetch(`https://sholiday.faboul.se/dagar/v2.1/${value.format('YYYY')}`)
            .then(response => {
                if(response.ok) {
                    return response.json()
@@ -51,7 +48,7 @@ function Calendar({ addTask, tasks, userID }){
                 setError(error)
             })
             )
-   }, [value, query])
+   }, [value])
 
    console.log(data);
 

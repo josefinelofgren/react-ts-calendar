@@ -180,7 +180,7 @@
 
   .sidenav-wrap {
     padding: 0 !important;
-    background-color: #2b2e31;
+    background-color: #316283;
     color: rgba(255, 255, 255, 0.8);
     max-width: 250px !important;
     min-width: 250px !important;
@@ -191,7 +191,10 @@
     height: 100vh;
     width: 100%;
     transition: 850ms;
+    overflow: scroll;
   }
+
+
 
 
   /* categories */ 
@@ -247,6 +250,7 @@
     margin-bottom: 30px;
     font-size: 12px;
     max-width: max-content;
+    margin-right: 10px;
   }
 
   .sidenav-task {

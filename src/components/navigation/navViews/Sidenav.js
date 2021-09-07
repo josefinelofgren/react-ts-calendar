@@ -102,19 +102,19 @@ function Sidenav({ sidenav, tasks, userID, user }){
                     <ul className={dropDown ? 'dropdown-content hide' : 'dropdown-content'}>
                         <div className="list-group list-group-flush">
                             <div className='sidenav-category previous'>
-                                <div className='sidenav-title border-bottom-dark fw-bold'>
+                                <div className='sidenav-title border-bottom-thin fw-bold'>
                                 Förfallna
                                 </div>
                                 <div className='sidenav-tasks'>{beforeToday}</div>
                             </div>
                             <div className='sidenav-category'>
-                                <div className='sidenav-title border-bottom-dark fw-bold today'>
+                                <div className='sidenav-title border-bottom-thin border-color fw-bold today'>
                                 {todaysDateDayAndMonth}{' '}•{' '}Idag
                                 </div>
                                 <div className='sidenav-tasks'>{today}</div>
                             </div>
                             <div className='sidenav-category'>
-                                <div className='sidenav-title border-bottom-dark fw-bold'>
+                                <div className='sidenav-title border-bottom-thin fw-bold'>
                                 Kommande
                                 </div>
                                 <div className='sidenav-tasks'>{afterToday}</div>
