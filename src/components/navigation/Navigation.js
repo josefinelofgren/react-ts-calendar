@@ -44,12 +44,12 @@ function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
                     <>
                         <Link
                           className='link text-secondary no-user'  
-                          to='/users/login'>
+                          to='/react-calendar/users/login'>
                               Logga in
                         </Link>
                         <Link 
                           className='link text-secondary no-user'
-                          to='/users/signup'>
+                          to='/react-calendar/users/signup'>
                               Skapa konto
                         </Link>
                     </>
@@ -59,7 +59,7 @@ function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
                         <Link
                           className='link text-secondary user' 
                           onClick={e => logOutUser(e, history)}
-                          to='/'>
+                          to='//react-calendar'>
                               Logga ut
                         </Link>
                         <Link 

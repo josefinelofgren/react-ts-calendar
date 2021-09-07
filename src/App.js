@@ -164,7 +164,7 @@ class App extends Component {
                     )}
                     <Col>
                     <Navigation
-                        path='/:app?/:app2?'
+                        path='/react-calendar/:app?/:app2?'
                         user={this.state.user}
                         logOutUser={this.logOutUser}
                         sidenav={this.state.sidenav}
@@ -172,23 +172,23 @@ class App extends Component {
                         howManyTasks={this.state.howManyTasks}/> 
                     <Switch>
                       <Route 
-                          exact path='/'>
+                          exact path='/react-calendar'>
                           <StartPage
                               user={this.state.user}/> 
                       </Route>
                       <Route
-                          path='/app/calendar'>
+                          path='/react-calendar/app/calendar'>
                           <Calendar 
                               addTask={this.addTask}
                               tasks={this.state.tasks}
                               userID={this.state.userID}/> 
                       </Route>
                       <Route 
-                          path='/users/login'>
+                          path='/react-calendar/users/login'>
                           <Login /> 
                       </Route> 
                       <Route 
-                          path='/users/signup'>
+                          path='/react-calendar/users/signup'>
                           <Signup 
                               registerUser={this.registerUser}/> 
                       </Route> 

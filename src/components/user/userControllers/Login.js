@@ -30,7 +30,7 @@ function Login(){
             registrationInfo.email,
             registrationInfo.password
         ).then(() => {
-            history.push('/app/calendar');
+            history.push('/react-calendar/app/calendar');
         })
         .catch(error => {
             if(error.message === "There is no user record corresponding to this identifier. The user may have been deleted.") {

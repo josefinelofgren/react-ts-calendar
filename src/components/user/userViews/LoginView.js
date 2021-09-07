@@ -22,7 +22,7 @@ function LoginView({handleSubmit, errorMessage, email, setEmail, password, setPa
                 <div className='form-box'>
                         <Link 
                           className='form-box-content is-active'
-                          to='/users/login'>
+                          to='/react-calendar/users/login'>
                             <div className='fw-bold'>
                                <AiOutlineUser className='form-icon' />
                                <br /> 
@@ -32,7 +32,7 @@ function LoginView({handleSubmit, errorMessage, email, setEmail, password, setPa
                         <div className='form-box-content transparent'></div>
                         <Link 
                           className='form-box-content'
-                          to='/users/signup'>
+                          to='/react-calendar/users/signup'>
                             <div className='fw-bold'>
                                <VscSignIn className='form-icon' />
                                <br /> 
@@ -76,7 +76,7 @@ function LoginView({handleSubmit, errorMessage, email, setEmail, password, setPa
                         Logga in med Google
                     </Button>
                 </FormGroup>
-                <p>Har du inget konto än?<Link to='/users/signup' className='text-color'> Skapa konto</Link></p>
+                <p>Har du inget konto än?<Link to='/react-calendar/users/signup' className='text-color'> Skapa konto</Link></p>
             </form>
         </Container>
     )

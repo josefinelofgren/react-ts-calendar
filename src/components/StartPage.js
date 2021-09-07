@@ -20,7 +20,7 @@ function StartPage({ user }){
     };
 
     // handle click for button
-    const handleClick = () => history.push('/users/signup')
+    const handleClick = () => history.push('/react-calendar/users/signup')
 
     return(
         <Container>
@@ -36,7 +36,7 @@ function StartPage({ user }){
                 </Button>
                 <br />
                 <br />  
-                <p>Har du redan ett konto?<Link className='text-color' to='/users/login'> Logga in</Link></p>
+                <p>Har du redan ett konto?<Link className='text-color' to='/react-calendar/users/login'> Logga in</Link></p>
             </div>
         </Container>
     )
