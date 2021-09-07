@@ -14,9 +14,9 @@ function StartPage({ user }){
     // if user is already logged in, direct to users calendar
     // else direct to startpage
     if(user !== null){
-        history.push('/app/calendar');
+        history.push('/react-calendar/app/calendar');
     } else {
-        history.push('/')
+        history.push('/react-calendar/')
     };
 
     // handle click for button

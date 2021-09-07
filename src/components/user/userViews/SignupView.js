@@ -23,7 +23,7 @@ function SignupView({handleSubmit, email, errorMessage, setEmail, passOne, setPa
                 <div className='form-box'>
                         <Link 
                           className='form-box-content'
-                          to='/users/login'>
+                          to='/react-calendar/users/login'>
                             <div className='fw-bold'>
                                <AiOutlineUser className='form-icon' />
                                <br /> 
@@ -33,7 +33,7 @@ function SignupView({handleSubmit, email, errorMessage, setEmail, passOne, setPa
                         <div className='form-box-content transparent'></div>
                         <Link 
                           className='form-box-content is-active'
-                          to='/users/signup'>
+                          to='/react-calendar/users/signup'>
                             <div className='fw-bold'>
                                <VscSignIn className='form-icon' />
                                <br /> 
@@ -86,7 +86,7 @@ function SignupView({handleSubmit, email, errorMessage, setEmail, passOne, setPa
                             ) : null}
                     <Button type='submit' className='fw-bold'>Registrera</Button>
                 </FormGroup>
-                <p>Har du redan ett konto?<Link to='/users/login' className='text-color'> Logga in</Link></p>
+                <p>Har du redan ett konto?<Link to='/react-calendar/users/login' className='text-color'> Logga in</Link></p>
             </form>
         </Container>
     )
