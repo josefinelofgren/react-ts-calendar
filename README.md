@@ -20,4 +20,6 @@ Default user to login:
 
 - Login by using the default user above
 - Create a new user
+- Keep track of your tasks through a calendar 
+- Add new, check or delete tasks
 
