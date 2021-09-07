@@ -149,7 +149,7 @@ class App extends Component {
   return (
     <div className='App'>
         <Router>
-            <Container fluid>
+            <Container fluid className='body-container'>
                 <Row>
                     {this.state.user && (<Col xs={this.state.sidenav? '3' : '0'} className={this.state.sidenav ? 'sidenav-wrap is-active border-right' : 'sidenav-wrap not-active'}>
                         <Sidenav 

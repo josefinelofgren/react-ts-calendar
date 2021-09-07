@@ -52,7 +52,6 @@
 .info-bubble {
   position: absolute;
   background: #316283;
-  top: 52px;
   font-size: 12px;
   color: white;
   padding: 2px 8px;
@@ -61,11 +60,13 @@
 }
 
 .info-bubble.logout {
-  right: 80px;
+  top: 52px;
+  right: 75px;
 }
 
 .info-bubble.notification {
-  right: 20px;
+  top: 52px;
+  right: 33px;
 }
 
 .info-bubble:after,
@@ -73,7 +74,7 @@
   content: '';
 	position: absolute;
 	top: 0;
-	left: 83%;
+	right: 20px;
 	width: 0;
 	height: 0;
 	border: 8px solid transparent;
@@ -86,7 +87,7 @@
 
 
 
-.logout-icon:hover + .info-bubble {
+.icon-btn:hover + .info-bubble {
   display: block;
 }
 

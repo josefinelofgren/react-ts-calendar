@@ -3,14 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-function MenuBurger({sidenav, showSidenav}){
+function MenuBurger({state, showState, className}){
 
     return(
         <Link
             to='#'
-            className={sidenav ? 'menu-btn is-active' : 'menu-btn'}
-            onClick={showSidenav}>
-            <div className={sidenav ? 'menu-burger is-active' : 'menu-burger'} />
+            className={state ? `menu-btn is-active ${className}` : `menu-btn ${className}`}
+            onClick={showState}>
+            <div className={state ? `menu-burger is-active ${className}`: `menu-burger ${className}`} />
         </Link>
     )
 

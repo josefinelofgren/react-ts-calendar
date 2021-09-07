@@ -10,6 +10,8 @@ import dayStyles from '../calendarControllers/DayStyles';
 import CalendarHeader from './CalendarHeader';
 import AddTask from '../calendarControllers/AddTask';
 import ReturnTask from '../calendarControllers/ReturnTask';
+import { IoIosMore } from 'react-icons/io';
+import CalendarBubble from './CalendarBubble';
 
 function Calendar({ addTask, tasks, userID }){
 
@@ -23,9 +25,15 @@ function Calendar({ addTask, tasks, userID }){
     const [loading, setLoading] = useState(true)
     const [query, setQuery] = useState('')
     const [error, setError] = useState(null)
+    const [calendarBubble, setCalendarBubble] = useState(false);
+
 
     const handleClick = (day) => {
         setValue(day)
+    }
+
+    const showCalendarBubble = (e) => {
+        setCalendarBubble(!calendarBubble);
     }
 
    useEffect(() => {
@@ -59,6 +67,15 @@ function Calendar({ addTask, tasks, userID }){
                   value={value}
                   setValue={setValue}
                    /> 
+                <div className='specifik-day'>
+                    <CalendarBubble 
+                      userID={userID}
+                      tasks={tasks}
+                      value={value}
+                      calendarBubble={calendarBubble}
+                      showCalendarBubble={showCalendarBubble}
+                    /> 
+                </div>
                 <Container fluid>
                 <div className='row calendar-weekday border-right-thin border-left-thin border-bottom-thin border-top-thin'>
                     {weekdays.map((weekday, i) => (
@@ -77,7 +94,10 @@ function Calendar({ addTask, tasks, userID }){
                                   className={`${dayStyles(day, value)} day col-sm calendar-day border-right-bold`}
                                   onClick={(e) => handleClick(day)}
                                   > 
-                                    <div className='date fw-bold'>
+                                    <div className='calendar-menu '>
+                                        <IoIosMore onClick={(e) => showCalendarBubble(e)}/>
+                                    </div>
+                                    <div className='date inline-block fw-bold'>
                                         {day.format('D').toString()}
                                     </div>
 
@@ -88,7 +108,7 @@ function Calendar({ addTask, tasks, userID }){
                                                 <div key={day} className={`date holiday ${thisDay['röd dag']}`}>{thisDay.helgdag}</div>
                                                 </>
                                             )
-                                        }
+                                        } else return;
 
                                     })}
                                     

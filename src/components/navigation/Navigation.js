@@ -36,8 +36,8 @@ function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
             {user && 
             <>
                 <MenuBurger 
-                  sidenav={sidenav}
-                  showSidenav={showSidenav}/> 
+                  state={sidenav}
+                  showState={showSidenav}/> 
             </>
             }
                 <div className='nav-link'>
@@ -61,13 +61,13 @@ function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
                           className='link text-secondary nav-icon user' 
                           onClick={e => logOutUser(e, history)}
                           to='/react-calendar'>
-                              <VscSignOut className='logout-icon' /> 
+                              <VscSignOut className='icon-btn' /> 
                               <div className='info-bubble logout'>Logga ut</div>
                         </Link>
                         <Link 
                           className='link text-secondary nav-icon user'
                           to='#'>
-                              <IoIosNotificationsOutline className='logout-icon'/> 
+                              <IoIosNotificationsOutline className='icon-btn'/> 
                               <div className='info-bubble notification'>Antal uppgifter kvar att göra</div>
                               <div className={notification ? 'notification-bubble text-white fw-bold is-active' : 'notification-bubble text-white fw-bold'}>{howManyTasks}</div>
                         </Link>
