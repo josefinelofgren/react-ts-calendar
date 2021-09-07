@@ -6,13 +6,18 @@ import {
   Route
  } from 'react-router-dom';
 import firebase from './Firebase';
+import moment from 'moment';
+import 'moment/locale/sv'
 
 // import components
+import { Container, Row, Col } from 'react-bootstrap';
 import Navigation from './components/navigation/Navigation';
 import StartPage from './components/StartPage';
-import CalendarPage from './components/calendar/calendarViews/CalendarPage';
+import Calendar from './components/calendar/calendarViews/Calendar';
 import Login from './components/user/userControllers/Login';
 import Signup from './components/user/userControllers/Signup';
+import Sidenav from './components/navigation/navViews/Sidenav';
+
 
 class App extends Component {
 
@@ -22,10 +27,15 @@ class App extends Component {
       user: null,
       userID: null, 
       sidenav: true, 
+      loading: true
     };
   };
 
+
   componentDidMount() {
+
+    demoAsyncCall().then(() => this.setState({ loading: false }));
+    
     firebase
     .auth()
     .onAuthStateChanged(FirebaseUser => {
@@ -43,6 +53,7 @@ class App extends Component {
 
           let tasks = snapshot.val();
           let tasksList = [];
+          let noneCheckedTasks = [];
 
           for (let item in tasks) {
             tasksList.push({
@@ -52,11 +63,18 @@ class App extends Component {
               taskShortDate: tasks[item].taskShortDate,
               taskChecked: tasks[item].taskChecked
             });
+
+            // check if task is checked or not, if not checked -> push to array
+            if(tasks[item].taskChecked === false) {
+              noneCheckedTasks.push({
+                taskChecked: tasks[item].taskChecked
+              })
+            }
           }
 
           this.setState({
             tasks: tasksList,
-            howManyTasks: tasksList.length
+            howManyTasks: noneCheckedTasks.length
           });
         })  
       } else {
@@ -64,7 +82,6 @@ class App extends Component {
       }
     });
   }
-
 
   // show or hide sidenav 
   showSidenav = () => {
@@ -85,11 +102,6 @@ class App extends Component {
       taskShortDate:taskShortDate,
       taskChecked:taskChecked
     })
-
-    console.log(taskName);
-    console.log(taskDate);
-    console.log(taskShortDate)
-    console.log(taskChecked)
   };
 
 
@@ -121,50 +133,79 @@ class App extends Component {
         .signOut()
         .then(() => {
           console.log('utloggad');
+          console.log(this.state.user);
           history.push('/');
       })
   };
 
   render() {
 
+    const { loading } = this.state;
+
+    if(loading) {
+      return null;
+    }
+
   return (
     <div className='App'>
-      <Router>
-        <Navigation
-         path='/:app?/:app2?'
-         user={this.state.user}
-         logOutUser={this.logOutUser}
-         sidenav={this.state.sidenav}
-         showSidenav={this.showSidenav}
-         howManyTasks={this.state.howManyTasks}/> 
-        <Switch>
-          <Route 
-            exact path='/'
-            component={StartPage}/> 
-          <Route
-            path='/app/calendar'>
-              <CalendarPage 
-                sidenav={this.state.sidenav}
-                showSidenav={this.showSidenav}
-                addTask={this.addTask}
-                tasks={this.state.tasks}
-                userID={this.state.userID}
-                /> 
-          </Route>
-          
-          <Route 
-            path='/users/login'>
-              <Login /> 
-          </Route> 
-          <Route 
-            path='/users/signup'>
-              <Signup registerUser={this.registerUser}/> 
-          </Route> 
-        </Switch>
-      </Router>
+        <Router>
+            <Container fluid>
+                <Row>
+                    {this.state.user && (<Col xs={this.state.sidenav? '3' : '0'} className={this.state.sidenav ? 'sidenav-wrap is-active border-right' : 'sidenav-wrap not-active'}>
+                        <Sidenav 
+                          user={this.state.user}
+                          tasks={this.state.tasks}
+                          userID={this.state.userID}
+                          todaysDate={this.state.todaysDate}
+                          todaysDateDayAndMonth={this.state.todaysDateDayAndMonth}
+                          toggleDropDown={this.toggleDropDown}
+                          /> 
+                    </Col>
+                    )}
+                    <Col>
+                    <Navigation
+                        path='/:app?/:app2?'
+                        user={this.state.user}
+                        logOutUser={this.logOutUser}
+                        sidenav={this.state.sidenav}
+                        showSidenav={this.showSidenav}
+                        howManyTasks={this.state.howManyTasks}/> 
+                    <Switch>
+                      <Route 
+                          exact path='/'>
+                          <StartPage
+                              user={this.state.user}/> 
+                      </Route>
+                      <Route
+                          path='/app/calendar'>
+                          <Calendar 
+                              addTask={this.addTask}
+                              tasks={this.state.tasks}
+                              userID={this.state.userID}/> 
+                      </Route>
+                      <Route 
+                          path='/users/login'>
+                          <Login /> 
+                      </Route> 
+                      <Route 
+                          path='/users/signup'>
+                          <Signup 
+                              registerUser={this.registerUser}/> 
+                      </Route> 
+                    </Switch>
+                    </Col>
+                </Row>
+            </Container>
+         </Router>
     </div>
   );
 }
 }
+
+
+function demoAsyncCall() {
+  return new Promise((resolve) => setTimeout(() => resolve(), 2500));
+}
+
 
 export default App;

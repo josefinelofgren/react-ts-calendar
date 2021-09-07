@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebookF } from 'react-icons/fa';
+import { VscSignIn } from 'react-icons/vsc';
 
 // import components
 import Container from 'react-bootstrap/Container';
@@ -32,7 +33,7 @@ function LoginView({handleSubmit, email, setEmail, password, setPassword}){
                           className='form-box-content'
                           to='/users/signup'>
                             <div className='fw-bold'>
-                               <AiOutlineUser className='form-icon' />
+                               <VscSignIn className='form-icon' />
                                <br /> 
                                Skapa konto
                              </div>

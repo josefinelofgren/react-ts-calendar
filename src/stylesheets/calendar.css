@@ -1,33 +1,33 @@
+.calendar-container {
+    padding: 0 !important;
+}
+
+/* header */ 
+
 .calendar-header {
     text-align: center;
     padding: 20px 0;
+    font-family: 'Comfortaa' !important;
 }
+
+/* rows */ 
 
 .calendar-month {
-    width: 120px;
-}
-
-.col {
-    padding: 0 !important;
-}
-
-.calendar-container {
-    padding: 0 !important;
+    width: 130px;
 }
 
 .calendar-weekday {
     height: 30px;
     text-align: center;
     font-size: 12px;
+    color: grey;
+    font-family: 'Comfortaa' !important;
 }
 
 .weekday-day {
     position:relative;
     top: 10px;
-}
-
-.calendar-week {
-    height: 140px;
+    padding: 0!important;
 }
 
 .calendar-day {
@@ -36,29 +36,48 @@
     border: 1px solid transparent;
     font-size: 12px;
     background-color: #fff;
+    height: auto;
+    min-height: 120px;
+    max-height: 200px;
+    overflow: scroll;
+}
+
+.calendar-day.today {
+    border-top: 2px solid rgb(7, 181, 255);
+
 }
 
 .date {
     padding: 5px;
+    font-family: 'Comfortaa' !important;
 }
 
+.holiday {
+    font-size: 10px;
+}
+
+
+/* tasks */ 
+.calendar-tasks {
+    margin: 3px;
+}
+
+
+/* settings */ 
 
 .before {
-    color: rgb(122, 122, 122);
-}
-
-.calendar-day.today {
-    border-top: 2px solid rgb(1, 93, 197);
-
+    color: rgb(143, 143, 143);
 }
 
 .today {
-    color:  rgb(1, 93, 197);
+    color:  rgb(7, 181, 255);
 }
 
 .selected {
     color: #fff;
 }
+
+/* icons */ 
 
 .calendar-icon {
     margin: 0 20px;
@@ -66,8 +85,10 @@
 }
 
 .calendar-icon:hover {
-    color: rgb(1, 93, 197);
+    color: rgb(7, 181, 255);
 }
+
+/* input */ 
 
 .input-task {
     display: none;
@@ -85,8 +106,25 @@ form.input-task {
     width: 100% !important;
 }
 
-
 .calendar-input::placeholder, 
 .calendar-input[type="text"] {
     font-size: 12px;
 }
+
+
+
+/* small screens */ 
+@media screen and (max-width: 576px) {
+    .calendar-day {
+        border-bottom: 3px solid rgb(235, 235, 235);
+    }
+
+    .calendar-week {
+        border-bottom: none !important;
+    }
+
+    .weekday-day {
+        display: none;
+    }
+
+  }

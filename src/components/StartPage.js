@@ -7,10 +7,19 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
 
-function StartPage(){
+function StartPage({ user }){
 
     let history = useHistory();
 
+    // if user is already logged in, direct to users calendar
+    // else direct to startpage
+    if(user !== null){
+        history.push('/app/calendar');
+    } else {
+        history.push('/')
+    };
+
+    // handle click for button
     const handleClick = () => history.push('/users/signup')
 
     return(
@@ -21,13 +30,13 @@ function StartPage(){
                 </h1>
                 <br /> 
                 <Button 
-                    className='fw-bold'
+                    className='fw-bold bg-color border-color'
                     onClick={handleClick}>
                     Kom igång
                 </Button>
                 <br />
                 <br />  
-                <p>Har du redan ett konto?<Link to='/users/login'> Logga in</Link></p>
+                <p>Har du redan ett konto?<Link className='text-color' to='/users/login'> Logga in</Link></p>
             </div>
         </Container>
     )

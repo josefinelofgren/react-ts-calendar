@@ -10,7 +10,7 @@ function MenuBurger({sidenav, showSidenav}){
             to='#'
             className={sidenav ? 'menu-btn is-active' : 'menu-btn'}
             onClick={showSidenav}>
-            <div className='menu-burger' />
+            <div className={sidenav ? 'menu-burger is-active' : 'menu-burger'} />
         </Link>
     )
 

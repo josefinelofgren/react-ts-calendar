@@ -1,11 +1,10 @@
-// import libaries
-import React from 'react';
+// import libaries 
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { IoIosNotificationsOutline } from 'react-icons/io'
 
 // import components
-import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
+import { Navbar, Container } from 'react-bootstrap';
 import NavbarBrand from './navViews/NavbarBrand';
 import MenuBurger from './navViews/MenuBurger';
 
@@ -15,8 +14,20 @@ function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
 
     let history = useHistory();
 
+    const [notification, setNotification] = useState(null);
+
+    useEffect(() => {
+
+        if(howManyTasks === 0){
+            setNotification(false);
+        } else {
+            setNotification(true);
+        }
+
+    },[howManyTasks]);
+
     return(
-        <Navbar bg={user ? 'info' : 'transparent'} expand='lg' className={user ? 'shadow-5-strong border-bottom-thin' : ''}>
+        <Navbar bg={user ? 'transparent' : 'transparent'} expand='lg' className={user ? 'shadow-5-strong border-bottom-thin' : ''}>
             <Container fluid className='nav'>
             {!user &&
                 <NavbarBrand /> 
@@ -46,16 +57,16 @@ function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
                     {user &&
                     <>
                         <Link
-                          className='link text-white user' 
+                          className='link text-secondary user' 
                           onClick={e => logOutUser(e, history)}
                           to='/'>
                               Logga ut
                         </Link>
                         <Link 
-                          className='link text-white nav-icon user'
+                          className='link text-secondary nav-icon user'
                           to='#'>
                               <IoIosNotificationsOutline /> 
-                              <div className='notification-bubble text-white fw-bold'>{howManyTasks}</div>
+                              <div className={notification ? 'notification-bubble text-white fw-bold is-active' : 'notification-bubble text-white fw-bold'}>{howManyTasks}</div>
                         </Link>
                     </>
                     }

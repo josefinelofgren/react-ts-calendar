@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import './stylesheets/index.css';
 import './stylesheets/navigation.css';
 import './stylesheets/calendar.css';
+import './stylesheets/form.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(

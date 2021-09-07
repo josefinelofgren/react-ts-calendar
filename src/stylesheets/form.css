@@ -1,0 +1,100 @@
+/* FORM */ 
+
+  form {
+    width: 80%;
+    max-width: 450px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .form-box {
+    display: grid;
+    grid-template-columns: 45% 10% 45%;
+    margin-top: 40px;
+  }
+  
+  .form-box-content {
+    position:relative;
+    border: 2px solid rgb(172, 172, 172);
+    color: rgb(172, 172, 172);
+    margin: 20px 0;
+    padding: 30px;
+    cursor:pointer;
+  }
+  
+  .form-box-content.transparent{
+    border: 2px solid transparent;
+  }
+  
+  .form-box-content.is-active {
+    border: 2px solid rgb(0, 0, 0) !important;
+    color:rgb(0, 0, 0) !important;;
+  }
+  
+  .form-box-content:hover,
+  .form-box-content a:hover {
+      border: 2px solid rgb(122, 122, 122) !important;
+      color:rgb(122, 122, 122) !important;
+  }
+
+  .form-control {
+    margin: 10px auto;
+  }
+
+
+  /* form icon */ 
+
+  .form-icon {
+    font-size: 30px;
+  }
+  
+
+  /* form btn */ 
+  
+  form .btn {
+    width: 100% !important;
+    background-color: #000;
+    border-color: #000;
+  }
+  
+  form .btn:hover {
+    background-color: rgb(43, 43, 43);
+    border-color: rgb(43, 43, 43);
+  }
+
+  
+  /* form span */ 
+  
+  .form-or span {
+    display: inline-block;
+    position: relative; 
+    width: 100%;
+  }
+  
+  .form-or span:before,
+  .form-or span:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  border-bottom: 1px solid rgb(235, 235, 235);
+  top: 8px;
+  width: 44%;
+  }
+  
+  .form-or span:before {
+  right: 50%;
+  margin-right: 25px;
+  }
+  
+  .form-or span:after {
+  left: 50%;
+  margin-left: 25px;
+  }
+
+
+  /* input */ 
+
+  input::placeholder,
+  input[type=text] {
+    font-size: 12px;
+  }

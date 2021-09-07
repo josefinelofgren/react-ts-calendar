@@ -4,14 +4,17 @@ import { Link } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebookF } from 'react-icons/fa';
+import { VscSignIn } from 'react-icons/vsc';
 
 // import components
 import Container from 'react-bootstrap/Container';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
+import FormError from '../userControllers/FormError';
 
-function SignupView({handleSubmit, email, setEmail, passOne, setPassOne, passTwo, setPassTwo}){
+
+function SignupView({handleSubmit, email, errorMessage, setEmail, passOne, setPassOne, passTwo, setPassTwo}){
 
     return(
         <Container>
@@ -32,7 +35,7 @@ function SignupView({handleSubmit, email, setEmail, passOne, setPassOne, passTwo
                           className='form-box-content is-active'
                           to='/users/signup'>
                             <div className='fw-bold'>
-                               <AiOutlineUser className='form-icon' />
+                               <VscSignIn className='form-icon' />
                                <br /> 
                                Skapa konto
                              </div>
@@ -78,6 +81,9 @@ function SignupView({handleSubmit, email, setEmail, passOne, setPassOne, passTwo
                         value={passTwo}
                         onChange={e => setPassTwo(e.target.value)}
                         />
+                        {errorMessage !== null ? (
+                                <FormError theMessage={errorMessage}/> 
+                            ) : null}
                     <Button type='submit' className='fw-bold'>Registrera</Button>
                 </FormGroup>
                 <p>Har du redan ett konto?<Link to='/users/login' className='text-color'> Logga in</Link></p>

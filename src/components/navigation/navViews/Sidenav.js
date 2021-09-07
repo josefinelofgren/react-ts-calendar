@@ -1,132 +1,105 @@
 // import libaries
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/sv'
-import firebase from '../../../Firebase';
+
 
 // import components
-import { IoIosArrowForward } from 'react-icons/io';
-import { IoTrashOutline, IoCheckmarkOutline } from 'react-icons/io5';
+import { IoHomeOutline, IoMailOpenOutline } from 'react-icons/io5';
+import { IoIosArrowForward, IoIosNotificationsOutline } from 'react-icons/io';
+import ReturnTask from '../../calendar/calendarControllers/ReturnTask';
+import { Navbar, Container } from 'react-bootstrap';
+import toggleDropDown from '../navControllers/ToggleDropDown';
+import NavbarBrand from './NavbarBrand';
 
+function Sidenav({ sidenav, tasks, userID, user }){
 
-function Sidenav({sidenav, tasks, day, userID}){
-
+    const [dropDown, setDropDown] = useState(true);
+    
     moment.locale('sv');
     let todaysDate = moment().format('YYYYMMDD');
     let todaysDateDayAndMonth = moment().format('DD MMM');
 
-    let beforeToday;
+
     let today;
+    let beforeToday;
     let afterToday;
 
+    // sort tasks after date
+    let sortedTasks = tasks.sort((a,b) => new moment(a.taskDate).format('YYYYMMDD') - new moment(b.taskDate).format('YYYYMMDD'));
 
-    if(tasks !== undefined){
+    if(sortedTasks !== undefined){
 
-    // get tasks with deadline before todays date
-    beforeToday = tasks.map((task, i) => {
-        if(moment(task.taskDate).isBefore(todaysDate)){
-            return (
-                <div className='sidenav-task' key={i}>
-                    <div className='capitalize-first task-name inline-block'>{task.taskName}</div>
-                    <IoCheckmarkOutline onClick={e => toggleCheck(e, task.taskID, task.taskChecked)} className='task-icon check'/> 
-                    <IoTrashOutline onClick={e => deleteTask(e, task.taskID)} className='task-icon trash'/>
-                    <div className='task-date'>{task.taskShortDate}</div>
-                </div>
-            )
-        }
-    }); 
-
-    // get tasks with deadline on todays date
-    today = tasks.map((task, i) => {
-        if(moment(task.taskDate).isSame(todaysDate)){
-            return (
-                <div className='sidenav-task' key={i}>
-                    <div className='capitalize-first task-name inline-block'>{task.taskName}</div>
-                    <IoCheckmarkOutline onClick={e => toggleCheck(e, task.taskID, task.taskChecked)}className='task-icon check'/> 
-                    <IoTrashOutline onClick={e => deleteTask(e, task.taskID)} className='task-icon trash'/>
-                    <div className='task-date'>{task.taskShortDate}</div>
-                </div>
-            )
-        }
-    }); 
-
-    // get tasks with deadline after today date
-    afterToday = tasks.map((task, i) => {
-        if(moment(task.taskDate).isAfter(todaysDate)){
-            return (
-                <div className='sidenav-task' key={task.taskID}>
-                    <div className='capitalize-first task-name inline-block'>{task.taskName}</div>
-                    <IoCheckmarkOutline onClick={e => toggleCheck(e, task.taskID, task.taskChecked)} className='task-icon check'/> 
-                    <IoTrashOutline onClick={e => deleteTask(e, task.taskID)} className='task-icon trash'/>
-                    <div className='task-date'>{task.taskShortDate}</div>
-                </div>
-            )
-        }
-    });
-};
-
-   
-
-    // toggle dropdown 
-    const toggleDropDown = (e) => {
-
-        if(tasks !== undefined){
-            e.preventDefault();
-
-            let parentElement = e.target.parentElement.parentElement.parentElement;
-            let secondChild = parentElement.children[1];
-            let arrow = parentElement.children[0].children[0].children[0];
-
-            arrow.classList.toggle('rotate');
-            secondChild.classList.toggle('hide');
-       }
+        // get tasks with deadline before todays date
+        beforeToday = sortedTasks.map((task, i) => {
+            if(moment(task.taskDate).isBefore(todaysDate)){
+                return (
+                    <ReturnTask
+                        key={i} 
+                        userID={userID}
+                        taskChecked={task.taskChecked}
+                        taskName={task.taskName}
+                        taskID={task.taskID}
+                        taskShortDate={task.taskShortDate}
+                        />
+                )
+            } else return null;
+        }); 
+    
+        // get tasks with deadline on todays date
+        today = sortedTasks.map((task, i) => {
+            if(moment(task.taskDate).isSame(todaysDate)){
+                return (
+                    <ReturnTask
+                        key={i} 
+                        userID={userID}
+                        taskChecked={task.taskChecked}
+                        taskName={task.taskName}
+                        taskID={task.taskID}
+                        taskShortDate={task.taskShortDate}
+                        />
+                )
+            } else return null; 
+        }); 
+    
+        // get tasks with deadline after today date
+        afterToday = sortedTasks.map((task, i) => {
+            if(moment(task.taskDate).isAfter(todaysDate)){
+                return (
+                    <ReturnTask
+                        key={i}  
+                        userID={userID}
+                        taskChecked={task.taskChecked}
+                        taskName={task.taskName}
+                        taskID={task.taskID}
+                        taskShortDate={task.taskShortDate}
+                        />
+                )
+            } else return null; 
+        });
     };
-    
-
-    
-    // toggle checked task  
-    const toggleCheck = (e, whichTask, taskChecked) => {
-        e.preventDefault();
-
-        let element = e.target;
-        let parentElement = e.target.parentElement;
-        let firstChild = parentElement.children[0];
-
-        const ref = firebase
-        .database()
-        .ref(`/app/calendar/${userID}/${whichTask}/taskChecked`);
-
-        if(taskChecked === false){
-            ref.set(!taskChecked);
-            element.classList.add('checked');
-            parentElement.classList.add('checked');
-            firstChild.classList.add('checked');
-        } else if(taskChecked === true){
-            ref.set(!taskChecked);
-            element.classList.remove('checked');
-            parentElement.classList.remove('checked');
-            firstChild.classList.remove('checked');
-        }
-    }
-
-
-    // delte task 
-    const deleteTask = (e, whichTask) => {
-        e.preventDefault();
-
-        const ref  = firebase.database().ref(`app/calendar/${userID}/${whichTask}`);
-        ref.remove();
-    }
-    
 
     return (
 
             <div className={sidenav ? 'sidenav' : 'sidenav is-active'}>
+                <Navbar>
+                    <Container fluid>
+                        <NavbarBrand 
+                            user={user}/> 
+                    </Container>
+                </Navbar>
+                <ul className='sidenav-alternatives'>
+                    <p className='fw-bold'><IoHomeOutline className='sidenav-icon' /> Hem</p>
+                    <p className='fw-bold'><IoMailOpenOutline className='sidenav-icon' /> Inkorg</p>
+                </ul>
                 <div className='dropdown'>
                     <div className='fw-bold dropdown-category'>
-                        <div className='nav-link-dropdown'><IoIosArrowForward className='arrow inline-block rotate' onClick={e => toggleDropDown(e)}/><p className='inline-block' onClick={e => toggleDropDown(e)}>Mina uppgifter</p></div>
+                        <div className='nav-link-dropdown' onClick={e => toggleDropDown(e, tasks, setDropDown, dropDown)}>
+                            <IoIosNotificationsOutline className='sidenav-icon' />
+                            <p className='inline-block'>Mina uppgifter</p>
+                            <IoIosArrowForward className={dropDown ? 'sidenav-icon arrow inline-block rotate' : 'arrow inline-block' }/></div>
                     </div>
-                    <ul className='dropdown-content hide'>
+                    <ul className={dropDown ? 'dropdown-content hide' : 'dropdown-content'}>
                         <div className="list-group list-group-flush">
                             <div className='sidenav-category previous'>
                                 <div className='sidenav-title border-bottom-dark fw-bold'>

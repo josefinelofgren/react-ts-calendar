@@ -47,10 +47,11 @@ function AddTask({day, value, addTask}){
         <>
             <Form className={`${showInputTask(day, value)} input-task`} onSubmit={e => handleSubmit(e)}>
                 <Form.Control
+                    required
                     className='calendar-input'
                     type='text' 
                     placeholder='Lägg till uppgift..' 
-                    id={`${day.format('YYYYMMDD')}`}
+                    id={`${day.format('YYYY/MM/DD')}`}
                     name={`${day.format('DD MMM')}`}
                     value={taskName}
                     onChange={e => handleChange(e)} />
