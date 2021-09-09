@@ -1,6 +1,6 @@
 // import libaries
 import React from 'react';
-import firebase from '../../../Firebase';
+import firebase from '../../Firebase';
 
 //import components
 import { IoTrashOutline, IoCheckmarkOutline } from 'react-icons/io5';
@@ -15,8 +15,6 @@ function ReturnTask ({taskChecked, taskID, taskShortDate, taskName, userID}){
         const ref = firebase
         .database()
         .ref(`react-calendar/app/calendar/${userID}/${whichTask}/taskChecked`);
-
-        console.log(taskChecked);
         
         if(taskChecked === false){
             ref.set(!taskChecked);
@@ -24,7 +22,6 @@ function ReturnTask ({taskChecked, taskID, taskShortDate, taskName, userID}){
             ref.set(!taskChecked);
         }
     }
-
 
     // delete task 
     const deleteTask = (e, whichTask) => {

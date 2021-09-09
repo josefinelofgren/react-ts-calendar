@@ -7,7 +7,6 @@ function isToday(day) {
 }
 
 export default function dayStyles(day, value) {
-    // if(isSelected(day, value)) return 'selected'
     if(isToday(day)) return 'today'
     if(beforeToday(day)) return 'before'
     return ''

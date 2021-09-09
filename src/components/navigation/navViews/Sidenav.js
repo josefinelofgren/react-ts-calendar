@@ -3,84 +3,26 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/sv'
 
-
 // import components
 import { IoHomeOutline, IoMailOpenOutline } from 'react-icons/io5';
 import { IoIosArrowForward, IoIosNotificationsOutline } from 'react-icons/io';
-import ReturnTask from '../../calendar/calendarControllers/ReturnTask';
 import { Navbar, Container } from 'react-bootstrap';
 import toggleDropDown from '../navControllers/ToggleDropDown';
 import NavbarBrand from './NavbarBrand';
+import { tasksBeforeToday, tasksToday, tasksAfterToday } from '../../tasks/SortTasks';
+
 
 function Sidenav({ sidenav, tasks, userID, user }){
 
+    // states 
     const [dropDown, setDropDown] = useState(true);
-    
+
+    // dates 
     moment.locale('sv');
-    let todaysDate = moment().format('YYYYMMDD');
     let todaysDateDayAndMonth = moment().format('DD MMM');
 
 
-    let today;
-    let beforeToday;
-    let afterToday;
-
-    if(tasks !== undefined){
-
-        // sort tasks after date
-    let sortedTasks = tasks.sort((a,b) => new moment(a.taskDate).format('YYYYMMDD') - new moment(b.taskDate).format('YYYYMMDD'));
-
-        // get tasks with deadline before todays date
-        beforeToday = sortedTasks.map((task, i) => {
-            if(moment(task.taskDate).isBefore(todaysDate)){
-                return (
-                    <ReturnTask
-                        key={i} 
-                        userID={userID}
-                        taskChecked={task.taskChecked}
-                        taskName={task.taskName}
-                        taskID={task.taskID}
-                        taskShortDate={task.taskShortDate}
-                        />
-                )
-            } else return null;
-        }); 
-    
-        // get tasks with deadline on todays date
-        today = sortedTasks.map((task, i) => {
-            if(moment(task.taskDate).isSame(todaysDate)){
-                return (
-                    <ReturnTask
-                        key={i} 
-                        userID={userID}
-                        taskChecked={task.taskChecked}
-                        taskName={task.taskName}
-                        taskID={task.taskID}
-                        taskShortDate={task.taskShortDate}
-                        />
-                )
-            } else return null; 
-        }); 
-    
-        // get tasks with deadline after today date
-        afterToday = sortedTasks.map((task, i) => {
-            if(moment(task.taskDate).isAfter(todaysDate)){
-                return (
-                    <ReturnTask
-                        key={i}  
-                        userID={userID}
-                        taskChecked={task.taskChecked}
-                        taskName={task.taskName}
-                        taskID={task.taskID}
-                        taskShortDate={task.taskShortDate}
-                        />
-                )
-            } else return null; 
-        });
-    };
-
     return (
-
             <div className={sidenav ? 'sidenav' : 'sidenav is-active'}>
                 <Navbar>
                     <Container fluid>
@@ -105,19 +47,19 @@ function Sidenav({ sidenav, tasks, userID, user }){
                                 <div className='sidenav-title border-bottom-thin fw-bold'>
                                 Förfallna
                                 </div>
-                                <div className='sidenav-tasks'>{beforeToday}</div>
+                                <div className='sidenav-tasks'>{tasksBeforeToday(tasks, userID)}</div>
                             </div>
                             <div className='sidenav-category'>
                                 <div className='sidenav-title border-bottom-thin border-color fw-bold today'>
                                 {todaysDateDayAndMonth}{' '}•{' '}Idag
                                 </div>
-                                <div className='sidenav-tasks'>{today}</div>
+                                <div className='sidenav-tasks'>{tasksToday(tasks, userID)}</div>
                             </div>
                             <div className='sidenav-category'>
                                 <div className='sidenav-title border-bottom-thin fw-bold'>
                                 Kommande
                                 </div>
-                                <div className='sidenav-tasks'>{afterToday}</div>
+                                <div className='sidenav-tasks'>{tasksAfterToday(tasks, userID)}</div>
                             </div>
                         </div>
                     </ul>

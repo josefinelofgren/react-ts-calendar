@@ -11,7 +11,7 @@ import 'moment/locale/sv'
 
 // import components
 import { Container, Row, Col } from 'react-bootstrap';
-import Navigation from './components/navigation/Navigation';
+import Navigation from './components/navigation/navViews/Navigation';
 import StartPage from './components/StartPage';
 import Calendar from './components/calendar/calendarViews/Calendar';
 import Login from './components/user/userControllers/Login';
@@ -31,11 +31,9 @@ class App extends Component {
     };
   };
 
-
   componentDidMount() {
 
     demoAsyncCall().then(() => this.setState({ loading: false }));
-    
     firebase
     .auth()
     .onAuthStateChanged(FirebaseUser => {
@@ -44,16 +42,13 @@ class App extends Component {
           user: FirebaseUser,
           userID: FirebaseUser.uid
         });
-
         const tasksRef = firebase
           .database()
           .ref('react-calendar/app/calendar/' + FirebaseUser.uid);
-
         tasksRef.on('value', snapshot => {
-
           let tasks = snapshot.val();
           let tasksList = [];
-          let noneCheckedTasks = [];
+          let allTasksRemaining = [];
 
           for (let item in tasks) {
             tasksList.push({
@@ -64,17 +59,20 @@ class App extends Component {
               taskChecked: tasks[item].taskChecked
             });
 
-            // check if task is checked or not, if not checked -> push to array
-            if(tasks[item].taskChecked === false) {
-              noneCheckedTasks.push({
-                taskChecked: tasks[item].taskChecked
-              })
+            // push to array if task is before or today and not checked
+            let todaysDate = moment().format('YYYYMMDD');
+            if(moment(tasks[item].taskDate).isBefore(todaysDate) || moment(tasks[item].taskDate).isSame(todaysDate)){
+              if(tasks[item].taskChecked === false){
+                  allTasksRemaining.push({
+                  taskChecked: tasks[item].taskChecked
+                })
+              }
             }
           }
 
           this.setState({
             tasks: tasksList,
-            howManyTasks: noneCheckedTasks.length
+            howManyTasks: allTasksRemaining.length
           });
         })  
       } else {
@@ -82,6 +80,7 @@ class App extends Component {
       }
     });
   }
+
 
   // show or hide sidenav 
   showSidenav = () => {
@@ -105,7 +104,6 @@ class App extends Component {
   };
 
 
-
   // register user
   registerUser = (history) => {
       firebase
@@ -127,7 +125,6 @@ class App extends Component {
         user: null,
         userID: null
       });
-
       firebase
         .auth()
         .signOut()
@@ -138,10 +135,10 @@ class App extends Component {
       })
   };
 
+
   render() {
 
     const { loading } = this.state;
-
     if(loading) {
       return null;
     }

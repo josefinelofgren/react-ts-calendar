@@ -6,19 +6,17 @@ import { VscSignOut } from 'react-icons/vsc';
 
 // import components
 import { Navbar, Container } from 'react-bootstrap';
-import NavbarBrand from './navViews/NavbarBrand';
-import MenuBurger from './navViews/MenuBurger';
+import NavbarBrand from './NavbarBrand';
+import MenuBurger from './MenuBurger';
 
 
 // navigation
 function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
 
     let history = useHistory();
-
     const [notification, setNotification] = useState(null);
 
     useEffect(() => {
-
         if(howManyTasks === 0){
             setNotification(false);
         } else {
@@ -68,7 +66,7 @@ function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
                           className='link text-secondary nav-icon user'
                           to='#'>
                               <IoIosNotificationsOutline className='icon-btn'/> 
-                              <div className='info-bubble notification'>Antal uppgifter kvar att göra</div>
+                              <div className='info-bubble notification'>Antal uppgifter kvar med deadline idag eller tidigare</div>
                               <div className={notification ? 'notification-bubble text-white fw-bold is-active' : 'notification-bubble text-white fw-bold'}>{howManyTasks}</div>
                         </Link>
                     </>
