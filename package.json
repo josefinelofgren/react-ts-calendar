@@ -1,6 +1,6 @@
 {
   "name": "calender-todo",
-  "homepage": "https://josefinelofgren.github.io/react-typescript-calendar",
+  "homepage": "https://josefinelofgren.github.io/react-ts-calendar",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
