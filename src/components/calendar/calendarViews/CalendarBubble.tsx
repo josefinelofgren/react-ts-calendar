@@ -6,8 +6,18 @@ import moment from 'moment';
 import MenuBurger from '../../navigation/navViews/MenuBurger';
 import { tasksCompleted, tasksRemaining } from '../../tasks/SortTasks';
 
+interface Props {
+    calendarBubble: boolean,
+    value: any,
+    tasks: any, 
+    userID: string | null 
+    showCalendarBubble(calendarBubble: boolean): void
+}
 
-function CalendarBubble({ calendarBubble, showCalendarBubble, value, tasks, userID }){
+
+function CalendarBubble(props: Props){
+
+    const { calendarBubble, showCalendarBubble, value, tasks, userID } = props;
 
     // get chosen days date
     let thisDaysDate = value.format('YYYYMMDD');
@@ -15,12 +25,12 @@ function CalendarBubble({ calendarBubble, showCalendarBubble, value, tasks, user
     return ( 
         <div className={calendarBubble ? 'calendar-bubble is-active' : 'calendar-bubble' } >
              <MenuBurger
-               className="calendar"
-               state={calendarBubble}
-               showState={showCalendarBubble}
+               className='calendar'
+               sidenav={calendarBubble}
+               showSidenav={showCalendarBubble}
                /> 
             <div className='calendar-bubble-content'>
-                <h4 className='calendar-bubble-date border-bottom-thin'>{new moment(thisDaysDate).format('DD MMM YYYY')}</h4>
+                <h4 className='calendar-bubble-date border-bottom-thin'>{moment(thisDaysDate).format('DD MMM YYYY')}</h4>
                 <p className='fw-bold calendar-bubble-title'>Färdiga uppgifter för dagen:</p>
                 <ul className='calendar-bubble-tasks'>{tasksCompleted(tasks, userID, thisDaysDate)}</ul>
                 <br /> 

@@ -2,8 +2,15 @@
 import React from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
+interface Props {
+    value: any, 
+    setValue(func: void): void
+}
 
-function CalendarHeader({value, setValue}){
+
+function CalendarHeader(props: Props){
+
+    const { value, setValue } = props;
 
     const currentMonth = () => {
         return value.format('MMMM')

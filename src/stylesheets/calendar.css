@@ -57,6 +57,12 @@
     padding: 0 !important;
 }
 
+.calendar-task-number {
+    text-align: left;
+    margin-left: 5px;
+    color: grey;
+}
+
 
 /* tasks */ 
 .calendar-tasks {

@@ -1,10 +1,9 @@
-function toggleDropDown (e, tasks, setDropDown, dropDown){
+function toggleDropDown (dropDown: boolean, tasks: any,  setDropDown: any){
 
         if(tasks !== undefined){
-            e.preventDefault();
             setDropDown(!dropDown);
 
-       return; 
+       return;
     };
 };
 

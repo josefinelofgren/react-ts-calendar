@@ -12,45 +12,44 @@ import AddTask from '../../tasks/AddTask';
 import ReturnTask from '../../tasks/ReturnTask';
 import { IoIosMore } from 'react-icons/io';
 import CalendarBubble from './CalendarBubble';
+import axios from 'axios';
 
-function Calendar({ addTask, tasks, userID }){
+interface Props {
+    tasks: any,
+    userID: string | null, 
+    addTask(taskName: string, taskDate: string, taskShortDate: string, taskChecked: boolean): void
+}
+
+function Calendar(props: Props){
+
+    const { addTask, tasks, userID } = props;
 
     moment.locale('sv');
     const weekdays = ['Mån', 'Tis', 'Ons', 'Tors', 'Fre', 'Lör', 'Sön'];
 
     // states
-    const [calendar, setCalendar] = useState([]);
-    const [value, setValue] = useState(moment());
+    const [calendar, setCalendar] = useState<any>([]);
+    const [value, setValue] = useState<any>(moment());
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
     const [calendarBubble, setCalendarBubble] = useState(false);
 
+    let howMany = [];
+
     // show calendar bubble for specifik day 
-    const showCalendarBubble = (e) => {
+    const showCalendarBubble = (e:any) => {
         setCalendarBubble(!calendarBubble);
     }
 
    useEffect(() => {
+       
     setCalendar(BuildCalendar(value));
-
-        return (
-           fetch(`https://sholiday.faboul.se/dagar/v2.1/${value.format('YYYY')}`)
-           .then(response => {
-               if(response.ok) {
-                   return response.json()
-               } throw response;
-            })
-            .then(data => {
-                setLoading(false);
-                setData(data.dagar);
-            })
-            .catch(error => {
-                console.error('error', error);
-                setError(error)
-            })
-        )
-   }, [value])
+    async function fetchData(){
+        const result = await axios(`https://sholiday.faboul.se/dagar/v2.1/${value.format('YYYY')}`);
+        setData(result.data.dagar);
+    }
+    fetchData();
+   
+   }, [value]);
 
     return(
             <Container fluid className='calendar-container'>
@@ -73,9 +72,9 @@ function Calendar({ addTask, tasks, userID }){
                         <div key={i} className='col-sm weekday-day fw-bold'>{weekday}</div>
                     ))}
                 </div>
-                    {calendar.map((week, i) => (
+                    {calendar.map((week:any, i:number) => (
                         <div key={i} className='row calendar-week border-left-bold border-bottom-bold'>
-                            {week.map((day) => {
+                            {week.map((day:any) => {
                                 return ( 
                                 <div
                                   key={`${day.format('YYYY/MM/DD')}`} 
@@ -88,15 +87,17 @@ function Calendar({ addTask, tasks, userID }){
                                     <div className='date inline-block fw-bold'>
                                         {day.format('D').toString()}
                                     </div>
-                                    {data.map((thisDay) => {
+                                    {data.map((thisDay:any) => {
                                         if(moment(thisDay.datum).isSame(day)){
                                             return(<div key={day} className={`date holiday ${thisDay['röd dag']}`}>{thisDay.helgdag}</div>)
                                         } else return null;
                                     })}
                                     <div className='calendar-tasks'>
                                     {tasks && (
-                                     tasks.map((task) => {
+                                     tasks.map((task:any) => {
                                          if(moment(task.taskDate).isSame(day)){
+
+                                            howMany.push(task);
                                              return (
                                              <ReturnTask 
                                                 key={task.taskID}

@@ -13,10 +13,10 @@ let todaysDate = moment().format('YYYYMMDD');
 
 
 // TASKS BEFORE TODAYS DATE 
-export const tasksBeforeToday = (tasks, userID) => {
+export const tasksBeforeToday = (tasks:any, userID:string | null) => {
     if(tasks !== undefined) {
-        let sortedTasks = tasks.sort((a,b) => new moment(a.taskDate).format('YYYYMMDD') - new moment(b.taskDate).format('YYYYMMDD'));
-        let tasksBeforeToday = sortedTasks.map((task, i) => {
+        let sortedTasks = tasks.sort((a:any, b:any) => moment(a.taskDate).valueOf() - moment(b.taskDate).valueOf());
+        let tasksBeforeToday = sortedTasks.map((task:any, i:any) => {
             if(moment(task.taskDate).isBefore(todaysDate)){
                 return (
                     <ReturnTask
@@ -35,10 +35,10 @@ export const tasksBeforeToday = (tasks, userID) => {
 
 
 // TASKS WITH SAME DATE AS TODAY 
-export const tasksToday = (tasks, userID) => {
+export const tasksToday = (tasks:any, userID:string | null) => {
     if(tasks !== undefined) {
-        let sortedTasks = tasks.sort((a,b) => new moment(a.taskDate).format('YYYYMMDD') - new moment(b.taskDate).format('YYYYMMDD'));
-        let tasksToday = sortedTasks.map((task, i) => {
+        let sortedTasks = tasks.sort((a:any,b:any) => moment(a.taskDate).valueOf() - moment(b.taskDate).valueOf());
+        let tasksToday = sortedTasks.map((task:any, i:any) => {
             if(moment(task.taskDate).isSame(todaysDate)){
                 return (
                     <ReturnTask
@@ -57,10 +57,10 @@ export const tasksToday = (tasks, userID) => {
 
 
 // TASKS AFTER TODAYS DATE 
-export const tasksAfterToday = (tasks, userID) => {
+export const tasksAfterToday = (tasks:any, userID:string | null) => {
     if(tasks !== undefined) {
-        let sortedTasks = tasks.sort((a,b) => new moment(a.taskDate).format('YYYYMMDD') - new moment(b.taskDate).format('YYYYMMDD'));
-        let tasksAfterToday = sortedTasks.map((task, i) => {
+        let sortedTasks = tasks.sort((a:any,b:any) => moment(a.taskDate).valueOf() - moment(b.taskDate).valueOf());
+        let tasksAfterToday = sortedTasks.map((task:any, i:any) => {
             if(moment(task.taskDate).isAfter(todaysDate)){
                 return (
                     <ReturnTask
@@ -79,10 +79,10 @@ export const tasksAfterToday = (tasks, userID) => {
 
 
 // TASKS THAT'S COMPLETED ON CHOSEN DAY 
-export const tasksCompleted = (tasks, userID, thisDaysDate) => {
+export const tasksCompleted = (tasks:any, userID:string | null, thisDaysDate:any) => {
     if(tasks !== undefined) {
-        let sortedTasks = tasks.sort((a,b) => new moment(a.taskDate).format('YYYYMMDD') - new moment(b.taskDate).format('YYYYMMDD'));
-        let tasksCompleted = sortedTasks.map((task, i) => {
+        let sortedTasks = tasks.sort((a:any,b:any) => moment(a.taskDate).valueOf() - moment(b.taskDate).valueOf());
+        let tasksCompleted = sortedTasks.map((task:any, i:any) => {
             if(moment(task.taskDate).isSame(thisDaysDate)){
                 if(task.taskChecked === true){
                     return (
@@ -105,10 +105,10 @@ export const tasksCompleted = (tasks, userID, thisDaysDate) => {
 
 
 // TASKS THAT'S REMAINING ON CHOSEN DAY 
-export const tasksRemaining = (tasks, userID, thisDaysDate) => {
+export const tasksRemaining = (tasks:any, userID:string | null, thisDaysDate:any) => {
     if(tasks !== undefined) {
-        let sortedTasks = tasks.sort((a,b) => new moment(a.taskDate).format('YYYYMMDD') - new moment(b.taskDate).format('YYYYMMDD'));
-        let tasksRemaining = sortedTasks.map((task, i) => {
+        let sortedTasks = tasks.sort((a:any,b:any) => moment(a.taskDate).valueOf() - moment(b.taskDate).valueOf());
+        let tasksRemaining = sortedTasks.map((task:any, i:any) => {
             if(moment(task.taskDate).isSame(thisDaysDate)){
                 if(task.taskChecked === false){
                     return (

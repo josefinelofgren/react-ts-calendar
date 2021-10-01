@@ -5,7 +5,13 @@ import { useHistory } from 'react-router-dom';
 import SignupView from '../userViews/SignupView'
 import firebase from '../../../Firebase';
 
-function Signup({registerUser}){
+interface Props {
+    registerUser(history: any): void
+}
+
+function Signup(props: Props){
+
+    const { registerUser } = props;
 
     let history = useHistory();
 
@@ -13,7 +19,7 @@ function Signup({registerUser}){
     const [email, setEmail] = useState('');
     const [passOne, setPassOne] = useState('');
     const [passTwo, setPassTwo] = useState('');
-    const [errorMessage, setErrorMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     useEffect(() => {
 
@@ -32,7 +38,7 @@ function Signup({registerUser}){
 
     },[passOne, passTwo])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:any) => {
         e.preventDefault();
 
         let registrationInfo = {

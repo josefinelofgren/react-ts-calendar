@@ -9,12 +9,26 @@ import { Navbar, Container } from 'react-bootstrap';
 import NavbarBrand from './NavbarBrand';
 import MenuBurger from './MenuBurger';
 
+interface Props {
+    sidenav: boolean, 
+    user: any,
+    howManyTasks: number
+    logOutUser(e: any, history: any): void, 
+    showSidenav(e: any, history: any): void 
+}
+
+interface States {
+    
+}
+
 
 // navigation
-function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
+function Navigation (props: Props, states: States){
+
+    const {sidenav, showSidenav, user, logOutUser, howManyTasks} = props;
 
     let history = useHistory();
-    const [notification, setNotification] = useState(null);
+    const [notification, setNotification] = useState(false);
 
     useEffect(() => {
         if(howManyTasks === 0){
@@ -29,13 +43,14 @@ function Navigation ({sidenav, showSidenav, user, logOutUser, howManyTasks}){
         <Navbar bg={user ? 'transparent' : 'transparent'} expand='lg' className={user ? 'shadow-5-strong border-bottom-thin' : ''}>
             <Container fluid className='nav'>
             {!user &&
-                <NavbarBrand /> 
+                <NavbarBrand user={user}/> 
             }
             {user && 
             <>
                 <MenuBurger 
-                  state={sidenav}
-                  showState={showSidenav}/> 
+                  className='navigation'
+                  sidenav={sidenav}
+                  showSidenav={showSidenav}/> 
             </>
             }
                 <div className='nav-link'>

@@ -1,4 +1,4 @@
-function BuildCalendar(value){
+function BuildCalendar(value: any){
 
     const startDay = value.clone().startOf('month').startOf('week');
     const endDay = value.clone().endOf('month').endOf('week');

@@ -13,8 +13,18 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import FormError from '../userControllers/FormError';
 
+interface Props {
+    errorMessage: string | null, 
+    email: string, 
+    password: string,
+    setEmail(e: string): void 
+    setPassword(e: string): void
+    handleSubmit(e: any): void
+}
 
-function SignupView({handleSubmit, email, errorMessage, setEmail, passOne, setPassOne, passTwo, setPassTwo}){
+function LoginView(props: Props) {
+
+    const { handleSubmit, errorMessage, email, setEmail, password, setPassword} = props;
 
     return(
         <Container>
@@ -22,7 +32,7 @@ function SignupView({handleSubmit, email, errorMessage, setEmail, passOne, setPa
                 <FormGroup>
                 <div className='form-box'>
                         <Link 
-                          className='form-box-content'
+                          className='form-box-content is-active'
                           to='/react-calendar/users/login'>
                             <div className='fw-bold'>
                                <AiOutlineUser className='form-icon' />
@@ -32,7 +42,7 @@ function SignupView({handleSubmit, email, errorMessage, setEmail, passOne, setPa
                         </Link>
                         <div className='form-box-content transparent'></div>
                         <Link 
-                          className='form-box-content is-active'
+                          className='form-box-content'
                           to='/react-calendar/users/signup'>
                             <div className='fw-bold'>
                                <VscSignIn className='form-icon' />
@@ -41,19 +51,6 @@ function SignupView({handleSubmit, email, errorMessage, setEmail, passOne, setPa
                              </div>
                         </Link>
                     </div>
-                    <Button className='fw-bold facebook'>
-                        <FaFacebookF className='btn-icon' /> 
-                        {' '}
-                        Fortsätt med Facebook
-                    </Button>
-                    <Button className='fw-bold google'>
-                        <FcGoogle className='btn-cion' /> 
-                        {' '}
-                        Fortsätt med Google
-                    </Button>
-                    <p className='form-or'> 
-                        <span>eller</span>
-                    </p>
                     <FormControl
                         required
                         type='text'
@@ -61,35 +58,39 @@ function SignupView({handleSubmit, email, errorMessage, setEmail, passOne, setPa
                         placeholder='E-post'
                         name='email'
                         value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         />
                     <FormControl
                         required
                         type='text'
-                        id='passOne'
+                        id='password'
                         placeholder='Lösenord'
-                        name='passOne'
-                        value={passOne}
-                        onChange={e => setPassOne(e.target.value)}
-                        />
-                    <FormControl
-                        required
-                        type='text'
-                        id='passTwo'
-                        placeholder='Upprepa lösenord'
-                        name='passTwo'
-                        value={passTwo}
-                        onChange={e => setPassTwo(e.target.value)}
+                        name='password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         />
                         {errorMessage !== null ? (
-                                <FormError theMessage={errorMessage}/> 
+                                <FormError errorMessage={errorMessage}/> 
                             ) : null}
-                    <Button type='submit' className='fw-bold'>Registrera</Button>
+                    <Button type='submit' className='fw-bold'>Logga in</Button>
+                    <p className='form-or'> 
+                        <span>eller</span>
+                    </p>
+                    <Button className='fw-bold facebook'>
+                        <FaFacebookF className='btn-icon' /> 
+                        {' '}
+                        Logga in med Facebook
+                    </Button>
+                    <Button className='fw-bold google'>
+                        <FcGoogle className='btn-cion' /> 
+                        {' '}
+                        Logga in med Google
+                    </Button>
                 </FormGroup>
-                <p>Har du redan ett konto?<Link to='/react-calendar/users/login' className='text-color'> Logga in</Link></p>
+                <p>Har du inget konto än?<Link to='/react-calendar/users/signup' className='text-color'> Skapa konto</Link></p>
             </form>
         </Container>
     )
 }
 
-export default SignupView;
+export default LoginView;

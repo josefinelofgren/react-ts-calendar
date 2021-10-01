@@ -5,11 +5,21 @@ import firebase from '../../Firebase';
 //import components
 import { IoTrashOutline, IoCheckmarkOutline } from 'react-icons/io5';
 
+interface Props {
+    taskChecked: boolean, 
+    taskID: string,
+    taskShortDate: string, 
+    taskName: string, 
+    userID: string | null
+}
 
-function ReturnTask ({taskChecked, taskID, taskShortDate, taskName, userID}){
+
+function ReturnTask (props: Props) {
+    
+    const { taskChecked, taskID, taskShortDate, taskName, userID } = props;
 
     // toggle checked task  
-    const toggleCheck = (e, whichTask, taskChecked) => {
+    const toggleCheck = (e: any, whichTask: string, taskChecked: boolean) => {
         e.preventDefault();
 
         const ref = firebase
@@ -24,7 +34,7 @@ function ReturnTask ({taskChecked, taskID, taskShortDate, taskName, userID}){
     }
 
     // delete task 
-    const deleteTask = (e, whichTask) => {
+    const deleteTask = (e:any, whichTask:string) => {
         e.preventDefault();
 
         const ref  = firebase.database().ref(`react-calendar/app/calendar/${userID}/${whichTask}`);

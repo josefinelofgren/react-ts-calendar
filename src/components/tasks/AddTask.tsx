@@ -2,28 +2,36 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap'
 
+interface Props {
+    day: any, 
+    value: any,
+    addTask(taskName: string, taskDate: string, taskShortDate: string, taskChecked: boolean): void
+}
 
-function AddTask({day, value, addTask}){
+
+function AddTask(props: Props){
+
+    const { day, value, addTask } = props;
 
     // states
     const [taskName, setTaskName] = useState('')
     const [taskDate, setTaskDate] = useState('')
     const [taskShortDate, setTaskShortDate] = useState('')
-    const [taskChecked, setTaskChecked] = useState('')
+    const [taskChecked, setTaskChecked] = useState(false)
 
     // check if day in calendar is selected
-    function isSelected(day, value) {
+    function isSelected(day: any, value: { isSame: (arg0: any, arg1: string) => any; }) {
         return value.isSame(day, 'day');
     }
 
     // add classname if selected
-    function showInputTask(day, value) {
+    function showInputTask(day: any, value: { isSame: (arg0: any, arg1: string) => any; }) {
         if(isSelected(day, value)) return 'selected'
         return ''
     }
 
     // handle change
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         e.preventDefault();
 
         setTaskName(e.target.value);
@@ -33,14 +41,14 @@ function AddTask({day, value, addTask}){
     }
 
     // handle submit
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:any) => {
         e.preventDefault();
 
         addTask(taskName, taskDate, taskShortDate, taskChecked);
         setTaskName('');
         setTaskDate('');
         setTaskShortDate('');
-        setTaskChecked('');
+        setTaskChecked(false);
     }
 
     return(

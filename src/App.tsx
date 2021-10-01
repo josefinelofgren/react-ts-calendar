@@ -18,21 +18,32 @@ import Login from './components/user/userControllers/Login';
 import Signup from './components/user/userControllers/Signup';
 import Sidenav from './components/navigation/navViews/Sidenav';
 
+interface Props {
 
-class App extends Component {
+}
 
-  constructor() {
-    super();
-    this.state = {
-      user: null,
-      userID: null, 
-      sidenav: true, 
-      loading: true
-    };
-  };
+interface States {
+    user: any
+    userID: string | null,
+    sidenav: boolean,
+    loading: boolean,
+    tasks: object,
+    howManyTasks: number
+}
+
+
+class App extends Component <Props, States> {
+
+  state = {
+    user: null,
+    userID: null,
+    sidenav: true,
+    loading: true,
+    tasks: [],
+    howManyTasks: 0
+  }
 
   componentDidMount() {
-
     demoAsyncCall().then(() => this.setState({ loading: false }));
     firebase
     .auth()
@@ -91,27 +102,31 @@ class App extends Component {
 
 
   // add task 
-  addTask = (taskName, taskDate, taskShortDate, taskChecked) => {
-    const ref = firebase
-        .database()
-        .ref(`react-calendar/app/calendar/${this.state.user.uid}`);
-    ref.push({
-      taskName:taskName, 
-      taskDate:taskDate, 
-      taskShortDate:taskShortDate,
-      taskChecked:taskChecked
-    })
+  addTask = (taskName: string, taskDate: string, taskShortDate: string, taskChecked: boolean) => {
+    if(this.state.user == null){
+      console.log('No user found')
+    } else {
+      const ref = firebase
+      .database()
+      .ref(`react-calendar/app/calendar/${this.state.userID}`);
+      ref.push({
+          taskName:taskName, 
+          taskDate:taskDate, 
+          taskShortDate:taskShortDate,
+          taskChecked:taskChecked
+      })
+    }
   };
 
 
   // register user
-  registerUser = (history) => {
+  registerUser = (history: any) => {
       firebase
       .auth()
       .onAuthStateChanged(FirebaseUser => {
         this.setState({
           user: FirebaseUser,
-          userID: FirebaseUser.uid
+          userID: FirebaseUser!.uid
         });
       history.push('/react-calendar/app/calendar');
     })
@@ -119,7 +134,7 @@ class App extends Component {
 
 
   // log out 
-  logOutUser = (e, history) => {
+  logOutUser = (e:any, history: any) => {
       e.preventDefault();
       this.setState({
         user: null,
@@ -148,20 +163,17 @@ class App extends Component {
         <Router>
             <Container fluid className='body-container'>
                 <Row>
-                    {this.state.user && (<Col xs={this.state.sidenav? '3' : '0'} className={this.state.sidenav ? 'sidenav-wrap is-active border-right' : 'sidenav-wrap not-active'}>
+                    {this.state.user && (<Col xs='3' className={this.state.sidenav ? 'sidenav-wrap is-active border-right' : 'sidenav-wrap not-active'}>
                         <Sidenav 
                           user={this.state.user}
                           tasks={this.state.tasks}
                           userID={this.state.userID}
-                          todaysDate={this.state.todaysDate}
-                          todaysDateDayAndMonth={this.state.todaysDateDayAndMonth}
-                          toggleDropDown={this.toggleDropDown}
+                          sidenav={this.state.sidenav}
                           /> 
                     </Col>
                     )}
                     <Col>
                     <Navigation
-                        path='/react-calendar/:app?/:app2?'
                         user={this.state.user}
                         logOutUser={this.logOutUser}
                         sidenav={this.state.sidenav}
@@ -201,7 +213,7 @@ class App extends Component {
 
 
 function demoAsyncCall() {
-  return new Promise((resolve) => setTimeout(() => resolve(), 2500));
+  return new Promise<void>((resolve) => setTimeout(() => resolve(), 2500));
 }
 
 

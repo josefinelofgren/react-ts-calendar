@@ -6,7 +6,14 @@ import { AiOutlineCalendar } from 'react-icons/ai'
 // import components
 import Navbar from 'react-bootstrap/Navbar';
 
-function NavbarBrand({ user }){
+interface Props {
+    user: any
+}
+
+function NavbarBrand(props: Props){
+
+    const { user } = props;
+    
     return(
         <Navbar.Brand>
             <Link className={!user ? 'fw-bold text-dark brand' : 'fw-bold text-light navbar-brand-sidenav brand'} to='/'>

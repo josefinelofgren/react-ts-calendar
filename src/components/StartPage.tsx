@@ -6,8 +6,13 @@ import { Link, useHistory } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
+interface Props {
+    user: any
+}
 
-function StartPage({ user }){
+function StartPage(props: Props){
+
+    const { user } = props;
 
     let history = useHistory();
 

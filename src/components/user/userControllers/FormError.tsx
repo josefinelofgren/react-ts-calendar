@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 
-class FormError extends Component {
-    render(){
+interface Props {
+    errorMessage: string | null
+}
 
-        const {theMessage} = this.props;
+function FormError(props: Props){
+    const {errorMessage} = props;
 
         return(
             <div className="col-12 alert alert-warning error-message">
-                {theMessage}
+                {errorMessage}
             </div> 
         );
-    }
 }
 
 export default FormError;

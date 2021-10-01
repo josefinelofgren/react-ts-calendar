@@ -227,6 +227,11 @@
     max-width: 250px !important;
     min-width: 250px !important;
     transition: 850ms;
+    display: none;
+  }
+
+  .sidenav-wrap.is-active {
+    display:block;
   }
 
   .sidenav {

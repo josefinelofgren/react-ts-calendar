@@ -12,7 +12,22 @@ import NavbarBrand from './NavbarBrand';
 import { tasksBeforeToday, tasksToday, tasksAfterToday } from '../../tasks/SortTasks';
 
 
-function Sidenav({ sidenav, tasks, userID, user }){
+interface Props {
+    sidenav: boolean,
+    tasks: object
+    userID: string | null
+    user: any
+}
+
+interface States {
+    dropDown: boolean,
+    setDropDown(dropDown: boolean): any
+
+}
+
+function Sidenav(props: Props, states: States){
+
+    const { sidenav, tasks, userID, user } = props;
 
     // states 
     const [dropDown, setDropDown] = useState(true);
@@ -36,7 +51,7 @@ function Sidenav({ sidenav, tasks, userID, user }){
                 </ul>
                 <div className='dropdown'>
                     <div className='fw-bold dropdown-category'>
-                        <div className='nav-link-dropdown' onClick={e => toggleDropDown(e, tasks, setDropDown, dropDown)}>
+                        <div className='nav-link-dropdown' onClick={() => toggleDropDown(dropDown, tasks, setDropDown)}>
                             <IoIosNotificationsOutline className='sidenav-icon' />
                             <p className='inline-block'>Mina uppgifter</p>
                             <IoIosArrowForward className={dropDown ? 'sidenav-icon arrow inline-block rotate' : 'arrow inline-block' }/></div>
