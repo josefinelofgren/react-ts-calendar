@@ -4,7 +4,7 @@ This app uses Firebase as a database. The application is deployed at github page
 
 ## Run app live 
 
-Visit: [https://josefinelofgren.github.io/react-calendar/](https://josefinelofgren.github.io/react-calendar/)
+Visit: [https://josefinelofgren.github.io/react-typescript-calendar/](https://josefinelofgren.github.io/react-typescript-calendar/)
 
 
 
