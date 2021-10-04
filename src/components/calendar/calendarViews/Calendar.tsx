@@ -12,7 +12,7 @@ import AddTask from '../../tasks/AddTask';
 import ReturnTask from '../../tasks/ReturnTask';
 import { IoIosMore } from 'react-icons/io';
 import CalendarBubble from './CalendarBubble';
-import axios from 'axios';
+import { useErrorHandler } from 'react-error-boundary'
 
 interface Props {
     tasks: any,
@@ -40,14 +40,24 @@ function Calendar(props: Props){
         setCalendarBubble(!calendarBubble);
     }
 
+    const handleError = useErrorHandler();
+    const callAPI = () => {
+        const result = fetch(`https://sholiday.faboul.se/dagar/v2.1/${value.format('YYYY')}`)
+        .then((response) => response.json(),
+            (error) => handleError(error))
+            .then((data) => {
+                setData(data.dagar);
+            });
+            return result;
+    }
+
    useEffect(() => {
        
     setCalendar(BuildCalendar(value));
-    async function fetchData(){
-        const result = await axios(`https://sholiday.faboul.se/dagar/v2.1/${value.format('YYYY')}`);
-        setData(result.data.dagar);
-    }
-    fetchData();
+
+   (async function (){
+       await callAPI();
+   })();
    
    }, [value]);
 

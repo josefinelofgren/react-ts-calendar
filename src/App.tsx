@@ -17,6 +17,8 @@ import Calendar from './components/calendar/calendarViews/Calendar';
 import Login from './components/user/userControllers/Login';
 import Signup from './components/user/userControllers/Signup';
 import Sidenav from './components/navigation/navViews/Sidenav';
+import { ErrorBoundary } from 'react-error-boundary'
+import ErrorFallback from './components/error/ErrorFallback';
 
 interface Props {
 
@@ -187,10 +189,12 @@ class App extends Component <Props, States> {
                       </Route>
                       <Route
                           path='/react-calendar/app/calendar'>
+                          <ErrorBoundary FallbackComponent={ErrorFallback}>
                           <Calendar 
                               addTask={this.addTask}
                               tasks={this.state.tasks}
                               userID={this.state.userID}/> 
+                              </ErrorBoundary>
                       </Route>
                       <Route 
                           path='/react-calendar/users/login'>

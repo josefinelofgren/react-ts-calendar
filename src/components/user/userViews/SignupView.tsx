@@ -11,7 +11,7 @@ import Container from 'react-bootstrap/Container';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-import FormError from '../userControllers/FormError';
+import FormError from '../../error/FormError';
 
 interface Props {
     errorMessage: string | null, 
